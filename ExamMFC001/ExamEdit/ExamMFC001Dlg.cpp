@@ -19,7 +19,6 @@
 
 CExamMFC001Dlg::CExamMFC001Dlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_EXAMMFC001_DIALOG, pParent)
-	, m_my_value(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -27,7 +26,6 @@ CExamMFC001Dlg::CExamMFC001Dlg(CWnd* pParent /*=nullptr*/)
 void CExamMFC001Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Text(pDX, IDC_EDIT1, m_my_value);
 }
 
 BEGIN_MESSAGE_MAP(CExamMFC001Dlg, CDialogEx)
@@ -94,19 +92,36 @@ HCURSOR CExamMFC001Dlg::OnQueryDragIcon()
 
 void CExamMFC001Dlg::OnBnClickedReadBtn()
 {
-	// TODO: Add your control notification handler code here
-	UpdateData(TRUE); // 컨트롤에 있는 값 -> 변수
+	//CString str;
+	//wchar_t str[4];
+	//GetDlgItemText(IDC_EDIT1, str, 4);
+
+	// CEdit 클래스가 제공하는 특별한 함수를 써야할 때
+	//CWnd* p = GetDlgItem(IDC_EDIT1);
+	//int len = p->SendMessage(WM_GETTEXTLENGTH);
+	//int len = p->GetWindowTextLength();
+	int len = GetDlgItem(IDC_EDIT1)->GetWindowTextLength();
+
+	if (len > 3) {
+		AfxMessageBox(L"너무 길게 입력했습니다.");
+	}
+	else
+	{
+		wchar_t str[4];
+		GetDlgItemText(IDC_EDIT1, str, 4);
+		AfxMessageBox(str);
+	}
+	/*CEdit* p_edit = (CEdit*)p;
+	CEdit* p_edit = (CEdit*)GetDlgItem(IDC_EDIT1);*/
+
+	//GetDlgItem(IDC_EDIT1);
+	/*CString str;
+	str.Format(L"%d", value);*/
 	
-	CString str;
-	str.Format(L"%d", m_my_value);
-	AfxMessageBox(str);
-	//int value = _wtoi(m_my_string);
 }
 
 
 void CExamMFC001Dlg::OnBnClickedWriteBtn()
 {
-	// TODO: Add your control notification handler code here
-	m_my_value = 5;
-	UpdateData(FALSE);// 변수 -> 컨트롤
+	SetDlgItemInt(IDC_EDIT1, 5);
 }

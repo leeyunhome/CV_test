@@ -33,6 +33,5 @@ protected:
 public:
 	afx_msg void OnBnClickedReadBtn();
 	afx_msg void OnBnClickedWriteBtn();
-protected:
-	int m_my_value;
+
 };
