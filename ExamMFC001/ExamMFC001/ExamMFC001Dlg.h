@@ -30,5 +30,10 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
-	virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+	//virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam);
+public:
+	// WM_LBUTTONDOWN
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnEnChangeEdit1();
+	afx_msg void OnBnClickedShowMsgBtn();
 };

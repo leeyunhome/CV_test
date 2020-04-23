@@ -31,6 +31,8 @@ void CExamMFC001Dlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CExamMFC001Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_LBUTTONDOWN()
+	ON_BN_CLICKED(IDC_SHOW_MSG_BTN, &CExamMFC001Dlg::OnBnClickedShowMsgBtn)
 END_MESSAGE_MAP()
 
 
@@ -87,29 +89,54 @@ HCURSOR CExamMFC001Dlg::OnQueryDragIcon()
 }
 
 
+//
+//LRESULT CExamMFC001Dlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+//{
+//	// TODO: Add your specialized code here and/or call the base class
+//	if (message == WM_LBUTTONDOWN) {
+//		CClientDC dc(this);
+//
+//		int x = LOWORD(lParam);	// 하위 16비트 값 분리
+//		int y = HIWORD(lParam);	// 상위 16비트 값 분리
+//
+//		if (wParam & MK_CONTROL) dc.Ellipse(x - 30, y - 30, x + 30, y + 30);
+//		else dc.Rectangle(x - 30, y - 30, x + 30, y + 30);
+//
+//		// Win32!
+//		//HDC h_dc = ::GetDC(m_hWnd);
+//		//Rectangle(h_dc, 10, 10, 100, 100);
+//		//::ReleaseDC(m_hWnd, h_dc);
+//
+//		//// MFC 기본 코드!
+//		//CDC *p_dc = GetDC();
+//		//p_dc->Rectangle(10, 10, 100, 100);
+//		//ReleaseDC(p_dc);
+//
+//	}
+//	return CDialogEx::WindowProc(message, wParam, lParam);
+//}
 
-LRESULT CExamMFC001Dlg::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
+
+void CExamMFC001Dlg::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	// TODO: Add your specialized code here and/or call the base class
-	if (message == WM_LBUTTONDOWN) {
-		CClientDC dc(this);
+	// TODO: Add your message handler code here and/or call default
+	CClientDC dc(this);
 
-		int x = LOWORD(lParam);	// 하위 16비트 값 분리
-		int y = HIWORD(lParam);	// 상위 16비트 값 분리
+	if (nFlags & MK_CONTROL) dc.Ellipse(point.x - 30, point.y - 30, point.x + 30, point.y + 30);
+	else dc.Rectangle(point.x - 30, point.y - 30, point.x + 30, point.y + 30);
+	CDialogEx::OnLButtonDown(nFlags, point);
+}
 
-		if (wParam & MK_CONTROL) dc.Ellipse(x - 30, y - 30, x + 30, y + 30);
-		else dc.Rectangle(x - 30, y - 30, x + 30, y + 30);
 
-		// Win32!
-		//HDC h_dc = ::GetDC(m_hWnd);
-		//Rectangle(h_dc, 10, 10, 100, 100);
-		//::ReleaseDC(m_hWnd, h_dc);
 
-		// MFC 기본 코드!
-		/*CDC *p_dc = GetDC();
-		p_dc->Rectangle(10, 10, 100, 100);
-		ReleaseDC(p_dc);*/
 
-	}
-	return CDialogEx::WindowProc(message, wParam, lParam);
+void CExamMFC001Dlg::OnBnClickedShowMsgBtn()
+{
+	// TODO: Add your control notification handler code here
+	//wchar_t str[64];//유니코드문자 64개까지 저장할 수 있는 배열을 만든 것
+	CString str, show_str;
+	GetDlgItemText(IDC_INPUT_MSG_EDIT, str);
+	//show_str.Format(L"사용자가 입력한 문자열 : %s", str);
+	show_str = L"사용자가 입력한 문자열 : " + str;
+	AfxMessageBox(show_str);
 }
