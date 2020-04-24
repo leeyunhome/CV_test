@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExamChat", "ExamChat\ExamCh
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExamMFC001_dialog", "ExamMFC001_dialog\ExamMFC001_dialog.vcxproj", "{FECAD1AA-F4A3-4AFF-8855-EA8DCA1D7247}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExamMFC", "ExamMFC\ExamMFC.vcxproj", "{09EB37CE-6E47-4611-9CA0-B21754230DD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{FECAD1AA-F4A3-4AFF-8855-EA8DCA1D7247}.Release|x64.Build.0 = Release|x64
 		{FECAD1AA-F4A3-4AFF-8855-EA8DCA1D7247}.Release|x86.ActiveCfg = Release|Win32
 		{FECAD1AA-F4A3-4AFF-8855-EA8DCA1D7247}.Release|x86.Build.0 = Release|Win32
+		{09EB37CE-6E47-4611-9CA0-B21754230DD0}.Debug|x64.ActiveCfg = Debug|x64
+		{09EB37CE-6E47-4611-9CA0-B21754230DD0}.Debug|x64.Build.0 = Debug|x64
+		{09EB37CE-6E47-4611-9CA0-B21754230DD0}.Debug|x86.ActiveCfg = Debug|Win32
+		{09EB37CE-6E47-4611-9CA0-B21754230DD0}.Debug|x86.Build.0 = Debug|Win32
+		{09EB37CE-6E47-4611-9CA0-B21754230DD0}.Release|x64.ActiveCfg = Release|x64
+		{09EB37CE-6E47-4611-9CA0-B21754230DD0}.Release|x64.Build.0 = Release|x64
+		{09EB37CE-6E47-4611-9CA0-B21754230DD0}.Release|x86.ActiveCfg = Release|Win32
+		{09EB37CE-6E47-4611-9CA0-B21754230DD0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
