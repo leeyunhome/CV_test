@@ -111,8 +111,9 @@ HBRUSH CBackgroundColorDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	if (nCtlColor == CTLCOLOR_DLG) return m_bk_brush;
 	else if (nCtlColor == CTLCOLOR_STATIC) {
-		pDC->SetBkMode(TRANSPARENT);
-		return m_bk_brush;
+		//pDC->SetBkMode(TRANSPARENT);
+		pDC->SetBkColor(RGB(0, 200, 255));
+		return (HBRUSH)::GetStockObject(NULL_BRUSH);//m_bk_brush;
 	}
 
 	return hbr;
