@@ -1,44 +1,50 @@
 
-// BackgroundColorDlg.cpp : implementation file
+// ExamMFC001Dlg.cpp : implementation file
 //
 
 #include "pch.h"
 #include "framework.h"
-#include "BackgroundColor.h"
-#include "BackgroundColorDlg.h"
+#include "ExamMFC001.h"
+#include "ExamMFC001Dlg.h"
 #include "afxdialogex.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
+#pragma comment(lib, "strmiids.lib")
 
-// CBackgroundColorDlg dialog
+#ifdef _DEBUG
+#pragma comment(lib, "dsh_tw_direct_show.lib")
+#else
+#pragma comment(lib, "rst_tw_direct_show.lib")
+#endif
+
+// CExamMFC001Dlg dialog
 
 
 
-CBackgroundColorDlg::CBackgroundColorDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_BACKGROUNDCOLOR_DIALOG, pParent)
+CExamMFC001Dlg::CExamMFC001Dlg(CWnd* pParent /*=nullptr*/)
+	: CDialogEx(IDD_EXAMMFC001_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
-void CBackgroundColorDlg::DoDataExchange(CDataExchange* pDX)
+void CExamMFC001Dlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CBackgroundColorDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CExamMFC001Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_DESTROY()
-	//ON_WM_CTLCOLOR()
-	ON_MESSAGE(WM_CTLCOLOR, OnCtrlColorDlg)
 END_MESSAGE_MAP()
 
-// CBackgroundColorDlg message handlers
 
-BOOL CBackgroundColorDlg::OnInitDialog()
+// CExamMFC001Dlg message handlers
+
+BOOL CExamMFC001Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
@@ -48,7 +54,12 @@ BOOL CBackgroundColorDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-	m_bk_brush.CreateSolidBrush(RGB(128, 255, 0));
+	m_live_cam.MakeDeviceList();
+	mp_preview = m_live_cam.MakePreviewGraphBuilder(0);
+	if (mp_preview != NULL) {
+		mp_preview->SetPreviewMode(m_hWnd, 8, 8);
+		mp_preview->StartPreview();
+	}
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -57,7 +68,7 @@ BOOL CBackgroundColorDlg::OnInitDialog()
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CBackgroundColorDlg::OnPaint()
+void CExamMFC001Dlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -78,48 +89,26 @@ void CBackgroundColorDlg::OnPaint()
 	}
 	else
 	{
-
-
 		CDialogEx::OnPaint();
 	}
 }
 
 // The system calls this function to obtain the cursor to display while the user drags
 //  the minimized window.
-HCURSOR CBackgroundColorDlg::OnQueryDragIcon()
+HCURSOR CExamMFC001Dlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
 
 
-void CBackgroundColorDlg::OnDestroy()
+void CExamMFC001Dlg::OnDestroy()
 {
 	CDialogEx::OnDestroy();
 
 	// TODO: Add your message handler code here
-	m_bk_brush.DeleteObject();
-}
-
-
-
-
-
-//HBRUSH CBackgroundColorDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
-//{
-//	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
-//
-//	if (nCtlColor == CTLCOLOR_DLG) return m_bk_brush;
-//	else if (nCtlColor == CTLCOLOR_STATIC) {
-//		//pDC->SetBkMode(TRANSPARENT);
-//		pDC->SetBkColor(RGB(0, 200, 255));
-//		return (HBRUSH)::GetStockObject(NULL_BRUSH);//m_bk_brush;
-//	}
-//
-//	return hbr;
-//}
-
-HRESULT CBackgroundColorDlg::OnCtrlColorDlg(WPARAM wParam, LPARAM lParam)
-{
-	return (HRESULT)(HBRUSH)m_bk_brush;
+	if (mp_preview != NULL) {
+		mp_preview->StopPreview();
+		delete mp_preview;
+	}
 }
