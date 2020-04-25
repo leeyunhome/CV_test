@@ -32,7 +32,7 @@ BEGIN_MESSAGE_MAP(CBackgroundColorDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_DESTROY()
-	ON_WM_ERASEBKGND()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -102,18 +102,18 @@ void CBackgroundColorDlg::OnDestroy()
 }
 
 
-BOOL CBackgroundColorDlg::OnEraseBkgnd(CDC* pDC)
+
+
+
+HBRUSH CBackgroundColorDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
-	// TODO: Add your message handler code here and/or call default
-	//BOOL flag = CDialogEx::OnEraseBkgnd(pDC);
-	CRect r;
-	GetClientRect(r);
-	/*CBrush *p_old_brush = dc.SelectObject(&m_bk_brush);
-	dc.Rectangle(r);
-	dc.SelectObject(p_old_brush);*/
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
 
-	//dc.FillSolidRect(r, RGB(0, 200, 255));
-	pDC->FillRect(r, &m_bk_brush);
+	if (nCtlColor == CTLCOLOR_DLG) return m_bk_brush;
+	else if (nCtlColor == CTLCOLOR_STATIC) {
+		pDC->SetBkMode(TRANSPARENT);
+		return m_bk_brush;
+	}
 
-	return TRUE;
+	return hbr;
 }
